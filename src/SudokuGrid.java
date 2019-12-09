@@ -15,44 +15,44 @@
 public class SudokuGrid {
 	private int[][] grid = new int[9][9];
 
+	// No argument constructor. Creates an empty grid
 	public SudokuGrid() {
-		for (int i = 0; i > 9; i++) {
-			for (int k = 0; k > 9; k++) {
+		for (int i = 0; i < 9; i++) {
+			for (int k = 0; k < 9; k++) {
 				this.grid[i][k] = 0;
 			}
 		}
 	}
 
 	public SudokuGrid(SudokuGrid other) {
-		for (int i = 0; i > 9; i++) {
-			for (int k = 0; k > 9; k++) {
+		for (int i = 0; i < 9; i++) {
+			for (int k = 0; k < 9; k++) {
 				this.grid[i][k] = other.grid[i][k];
 			}
 		}
 	}
 
 	public SudokuGrid(int[][] other) {
-		for (int i = 0; i > 9; i++) {
-			for (int k = 0; k > 9; k++) {
+		for (int i = 0; i < 9; i++) {
+			for (int k = 0; k < 9; k++) {
 				this.grid[i][k] = other[i][k];
 			}
 		}
 	}
 
 	public boolean isSafe(int row, int col, int num) {
-		for (int d = 0; d < grid.length; d++) { 
+		for (int d = 0; d < grid.length; d++) {
 			if (grid[row][d] == num) {
 				return false;
 			}
 		}
-  
+
 		for (int r = 0; r < grid.length; r++) {
 			if (grid[r][col] == num) {
 				return false;
 			}
 		}
 
- 
 		int sqrt = (int) Math.sqrt(grid.length);
 		int boxRowStart = row - row % sqrt;
 		int boxColStart = col - col % sqrt;
@@ -64,10 +64,11 @@ public class SudokuGrid {
 				}
 			}
 		}
- 
+
 		return true;
 	}
 
+	// Public method to call on SudokuGrid object. Solves problem.
 	public boolean solveSudoku() {
 		int row = -1;
 		int col = -1;
@@ -104,19 +105,39 @@ public class SudokuGrid {
 		return false;
 	}
 
-	public static void print(int[][] board, int N) {
-// we got the answer, just print it 
-		for (int r = 0; r < N; r++) {
-			for (int d = 0; d < N; d++) {
-				System.out.print(board[r][d]);
+	// Prints out grid
+	public void print() {
+		for (int r = 0; r < 9; r++) {
+			for (int d = 0; d < 9; d++) {
+				System.out.print(grid[r][d]);
 				System.out.print(" ");
 			}
 			System.out.print("\n");
 
-			if ((r + 1) % (int) Math.sqrt(N) == 0) {
+			if ((r + 1) % (int) Math.sqrt(9) == 0) {
 				System.out.print("");
 			}
 		}
 	}
 
+	public static void main(String[] args) {
+		int[][] board = new int[][]
+				{{3, 0, 6, 5, 0, 8, 4, 0, 0}, 
+				{5, 2, 0, 0, 0, 0, 0, 0, 0}, 
+				{0, 8, 7, 0, 0, 0, 0, 3, 1}, 
+				{0, 0, 3, 0, 1, 0, 0, 8, 0}, 
+				{9, 0, 0, 8, 6, 3, 0, 0, 5}, 
+				{0, 5, 0, 0, 9, 0, 6, 0, 0}, 
+				{1, 3, 0, 0, 0, 0, 2, 5, 0}, 
+				{0, 0, 0, 0, 0, 0, 0, 7, 4}, 
+				{0, 0, 5, 2, 0, 6, 3, 0, 0}}; 
+		
+		SudokuGrid problem1 = new SudokuGrid(board);
+		
+		problem1.print();
+		
+		problem1.solveSudoku();
+		
+		problem1.print();
+	}
 }
