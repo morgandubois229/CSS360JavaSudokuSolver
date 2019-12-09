@@ -119,6 +119,18 @@ public class SudokuGrid {
 			}
 		}
 	}
+	
+	public int[][] getGrid() {
+		int[][] returnArray = new int[9][9];
+		
+		for (int i = 0; i < 9; i++) {
+			for (int k = 0; k < 9; k++) {
+				returnArray[i][k] = this.grid[i][k];
+			}
+		}
+		
+		return returnArray;
+	}
 
 	public static void main(String[] args) {
 		int[][] board = new int[][]
